@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ulugbek Madaminov — AI Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#EDF0FB;--ink:#141833;--mut:#555E88;--acc:#3D52E0;--hot:#C9610F;--card:rgba(255,255,255,.7);--line:rgba(20,24,51,.14);--chip:rgba(61,82,224,.09);color-scheme:light dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0F1226;--ink:#E9ECFF;--mut:#98A1CC;--acc:#8EA2FF;--hot:#FFB45E;--card:rgba(24,29,62,.62);--line:rgba(190,200,255,.16);--chip:rgba(142,162,255,.12)}}
+:root[data-theme="dark"]{--bg:#0F1226;--ink:#E9ECFF;--mut:#98A1CC;--acc:#8EA2FF;--hot:#FFB45E;--card:rgba(24,29,62,.62);--line:rgba(190,200,255,.16);--chip:rgba(142,162,255,.12)}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font-family:"Manrope",system-ui,-apple-system,"Segoe UI",sans-serif;display:grid;place-items:center;padding:24px 16px;overflow-x:hidden}
+#net{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0}
+.card{position:relative;z-index:1;width:100%;max-width:520px;padding:36px 32px 28px;border-radius:30px;background:var(--card);border:1px solid var(--line);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .25s ease-out;box-shadow:0 30px 80px -30px rgba(40,50,140,.45)}
+.mono{width:76px;height:76px;border-radius:50%;display:grid;place-items:center;font-family:"Unbounded",system-ui,sans-serif;font-weight:700;font-size:22px;color:var(--ink);background:linear-gradient(var(--card),var(--card)) padding-box,conic-gradient(from 0deg,var(--acc),var(--hot),var(--acc)) border-box;border:3px solid transparent;animation:spin 8s linear infinite}
+.mono span{display:block;animation:spin 8s linear infinite reverse}
+@keyframes spin{to{transform:rotate(360deg)}}
+h1{font-family:"Unbounded",system-ui,sans-serif;font-weight:700;font-size:clamp(28px,7vw,40px);line-height:1.08;letter-spacing:-.02em;margin:22px 0 8px}
+h1 .l{display:inline-block;opacity:0;transform:translateY(60%) rotate(6deg);animation:up .7s cubic-bezier(.2,.8,.2,1) forwards;animation-delay:calc(var(--i)*38ms)}
+h1 .w{display:inline-block;white-space:nowrap}
+@keyframes up{to{opacity:1;transform:none}}
+.role{font-size:18px;font-weight:600;color:var(--acc);min-height:28px}
+.role::after{content:"";display:inline-block;width:2px;height:1.1em;margin-left:3px;vertical-align:-3px;background:var(--hot);animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.bio{margin:14px 0 20px;color:var(--mut);line-height:1.6;font-size:16px;max-width:60ch}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 26px;padding:0;list-style:none}
+.chips li{padding:7px 13px;border-radius:999px;background:var(--chip);font-size:14px;font-weight:600}
+.links{display:grid;gap:10px}
+.links a{display:flex;align-items:center;gap:14px;padding:12px 14px;border-radius:18px;border:1px solid var(--line);color:var(--ink);text-decoration:none;transition:transform .25s,border-color .25s,background .25s}
+.links a:hover,.links a:focus-visible{transform:translateX(6px);border-color:var(--acc);background:var(--chip)}
+.links a:focus-visible,.theme:focus-visible{outline:2px solid var(--acc);outline-offset:3px}
+.ic{width:42px;height:42px;border-radius:14px;display:grid;place-items:center;background:var(--chip);color:var(--acc);flex:none;transition:background .25s,color .25s,transform .35s}
+.links a:hover .ic,.links a:focus-visible .ic{background:var(--acc);color:var(--bg);transform:rotate(-8deg) scale(1.08)}
+.ic svg{width:22px;height:22px;fill:currentColor}
+.t small{display:block;color:var(--mut);font-size:13px}
+.t b{font-weight:600;font-size:16px;overflow-wrap:anywhere}
+.card>*:not(h1){opacity:0;animation:fade .8s ease forwards;animation-delay:.55s}
+.card>.links{animation-delay:.8s}
+@keyframes fade{to{opacity:1}}
+@media (max-width:420px){.card{padding:28px 20px 22px}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}h1 .l,.card>*:not(h1){opacity:1;transform:none}.card{transform:none}}
+</style>
+</head>
+<body>
+<canvas id="net" aria-hidden="true"></canvas>
+<main class="card" id="card">
+  <div class="mono" aria-hidden="true"><span>UM</span></div>
+  <h1 id="name" aria-label="Ulugbek Madaminov">Ulugbek Madaminov</h1>
+  <div class="role" id="role" aria-live="off">AI Engineer</div>
+  <p class="bio">Sun’iy intellekt asosidagi mahsulotlar quraman: modelni o‘qitishdan tortib, uni ishlab chiqarishga chiqarishgacha.</p>
+  <ul class="chips">
+    <li>Python</li><li>PyTorch</li><li>LLM va RAG</li><li>Computer Vision</li><li>NLP</li><li>MLOps</li><li>FastAPI</li><li>Docker</li>
+  </ul>
+  <nav class="links" aria-label="Aloqa">
+    <a href="https://t.me/maadaminov" target="_blank" rel="noopener">
+      <span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.9 4.3 18.7 19.5c-.2 1-.9 1.3-1.7.8l-4.8-3.6-2.3 2.2c-.3.3-.5.5-1 .5l.3-4.9 8.9-8c.4-.3-.1-.5-.6-.2L6.5 13 1.8 11.500c-1-.3-1-1 .2-1.5L20.400 3c.9-.3 1.600.2 1.500 1.300z"/></svg></span>
+      <span class="t"><small>Telegram</small><b>@maadaminov</b></span>
+    </a>
+    <a href="https://instagram.com/maadaminov18" target="_blank" rel="noopener">
+      <span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.500 2h9A5.500 5.500 0 0 1 22 7.500v9a5.500 5.500 0 0 1-5.500 5.500h-9A5.500 5.500 0 0 1 2 16.500v-9A5.500 5.500 0 0 1 7.500 2zm0 2A3.500 3.500 0 0 0 4 7.500v9A3.500 3.500 0 0 0 7.500 20h9a3.500 3.500 0 0 0 3.500-3.500v-9A3.500 3.500 0 0 0 16.500 4h-9zM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6zm5.300-3.300a1.200 1.200 0 1 1 0 2.400 1.200 1.200 0 0 1 0-2.400z"/></svg></span>
+      <span class="t"><small>Instagram</small><b>@maadaminov18</b></span>
+    </a>
+    <a href="mailto:maadaminovv@gmail.com">
+      <span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zm0 2v.5l8 5.200 8-5.200V6H4zm16 3-8 5.200L4 9v9h16V9z"/></svg></span>
+      <span class="t"><small>Pochta</small><b>maadaminovv@gmail.com</b></span>
+    </a>
+  </nav>
+</main>
+<script>
+(function(){
+var reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+/* Ism harflari animatsiyasi */
+var h=document.getElementById("name"),txt=h.getAttribute("aria-label"),i=0;
+h.textContent="";
+txt.split(" ").forEach(function(word,wi){
+  var w=document.createElement("span");w.className="w";w.setAttribute("aria-hidden","true");
+  word.split("").forEach(function(ch){var s=document.createElement("span");s.className="l";s.style.setProperty("--i",i++);s.textContent=ch;w.appendChild(s)});
+  h.appendChild(w);if(wi===0)h.appendChild(document.createTextNode(" "));
+});
+/* Lavozim yozilishi */
+var roles=["AI Engineer","LLM va RAG tizimlari","Computer Vision","Mashinaviy o‘qitish"],r=0,c=0,del=false,el=document.getElementById("role");
+function type(){
+  var s=roles[r];c+=del?-1:1;el.textContent=s.slice(0,c);
+  var d=del?35:75;
+  if(!del&&c===s.length){del=true;d=1600}
+  else if(del&&c===0){del=false;r=(r+1)%roles.length;d=300}
+  setTimeout(type,d);
+}
+if(!reduce){el.textContent="";setTimeout(type,900)}
+/* Neyron tarmoq foni */
+var cv=document.getElementById("net"),x=cv.getContext("2d"),W,H,P=[],m={x:-999,y:-999};
+function size(){
+  var d=devicePixelRatio||1;W=innerWidth;H=innerHeight;cv.width=W*d;cv.height=H*d;x.setTransform(d,0,0,d,0,0);
+  var n=Math.min(90,Math.floor(W*H/13000));
+  P=[];for(var k=0;k<n;k++)P.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.4,vy:(Math.random()-.5)*.4});
+}
+function draw(){
+  var cs=getComputedStyle(document.documentElement),acc=cs.getPropertyValue("--acc").trim(),hot=cs.getPropertyValue("--hot").trim();
+  x.clearRect(0,0,W,H);
+  for(var a=0;a<P.length;a++){
+    var p=P[a];
+    if(!reduce){
+      p.x+=p.vx;p.y+=p.vy;
+      if(p.x<0||p.x>W)p.vx*=-1;if(p.y<0||p.y>H)p.vy*=-1;
+      var dx=m.x-p.x,dy=m.y-p.y,dm=Math.hypot(dx,dy);
+      if(dm<170){p.x+=dx*.014;p.y+=dy*.014}
+    }
+    x.globalAlpha=.8;x.fillStyle=acc;x.beginPath();x.arc(p.x,p.y,2,0,6.283);x.fill();
+    for(var b=a+1;b<P.length;b++){
+      var q=P[b],dd=Math.hypot(p.x-q.x,p.y-q.y);
+      if(dd<125){x.globalAlpha=(1-dd/125)*.4;x.strokeStyle=acc;x.lineWidth=1;x.beginPath();x.moveTo(p.x,p.y);x.lineTo(q.x,q.y);x.stroke()}
+    }
+    var md=Math.hypot(p.x-m.x,p.y-m.y);
+    if(md<170){x.globalAlpha=(1-md/170)*.7;x.strokeStyle=hot;x.beginPath();x.moveTo(p.x,p.y);x.lineTo(m.x,m.y);x.stroke()}
+  }
+  x.globalAlpha=1;
+  if(!reduce)requestAnimationFrame(draw);
+}
+size();draw();addEventListener("resize",function(){size();if(reduce)draw()});
+/* Sichqoncha va kartani egish */
+var card=document.getElementById("card");
+addEventListener("pointermove",function(e){
+  m.x=e.clientX;m.y=e.clientY;
+  if(!reduce&&e.pointerType==="mouse"){
+    card.style.setProperty("--ry",((m.x/W-.5)*7).toFixed(2)+"deg");
+    card.style.setProperty("--rx",((m.y/H-.5)*-7).toFixed(2)+"deg");
+  }
+});
+addEventListener("pointerleave",function(){m.x=m.y=-999});
+})();
+</script>
+</body>
+</html>
